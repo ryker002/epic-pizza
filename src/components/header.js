@@ -4,6 +4,7 @@ import { Container, Row, Col } from "reactstrap"
 import { useStaticQuery, graphql } from "gatsby"
 import Img from "gatsby-image"
 import BackgroundImage from "gatsby-background-image"
+import styled from "styled-components"
 
 const Header = ({ siteTitle }) => {
   const data = useStaticQuery(graphql`
@@ -15,6 +16,9 @@ const Header = ({ siteTitle }) => {
               description
               fixed(width: 468, height: 300) {
                 ...GatsbyContentfulFixed_tracedSVG
+              }
+              fluid {
+                ...GatsbyContentfulFluid_withWebp
               }
             }
             headerBackground {
@@ -31,6 +35,14 @@ const Header = ({ siteTitle }) => {
   const background =
     data.allContentfulMainContent.edges[0].node.headerBackground.fluid
 
+  const HeaderImgWrapper = styled.div`
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    max-width: 468px;
+    max-height: 300px;
+  `
+
   return (
     // <header>
     <BackgroundImage tag={"header"} fluid={background}>
@@ -40,12 +52,14 @@ const Header = ({ siteTitle }) => {
             xs="12"
             className="p-5 d-flex justify-content-center align-items-center"
           >
-            {data.allContentfulMainContent.edges.map(edge => (
-              <Img
-                fixed={edge.node.businessLogo.fixed}
-                alt={edge.node.businessLogo.description}
-              />
-            ))}
+            <HeaderImgWrapper>
+              {data.allContentfulMainContent.edges.map(edge => (
+                <Img
+                  fluid={edge.node.businessLogo.fluid}
+                  alt={edge.node.businessLogo.description}
+                />
+              ))}
+            </HeaderImgWrapper>
           </Col>
         </Row>
       </Container>

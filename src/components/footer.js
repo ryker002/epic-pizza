@@ -2,6 +2,7 @@ import React from "react"
 import { Container, Row, Col } from "reactstrap"
 import { Link } from "gatsby"
 import { useStaticQuery, graphql } from "gatsby"
+import Img from "gatsby-image"
 
 const Footer = () => {
   const data = useStaticQuery(graphql`
@@ -13,6 +14,15 @@ const Footer = () => {
             businessHours
             businessAddress
             businessPhoneNumber
+            businessLogo {
+              description
+              fixed(width: 468, height: 300) {
+                ...GatsbyContentfulFixed_tracedSVG
+              }
+              fluid {
+                ...GatsbyContentfulFluid_withWebp
+              }
+            }
           }
         }
       }
@@ -38,12 +48,13 @@ const Footer = () => {
             md="4"
             className="d-flex align-items-center justify-content-center"
           >
-            <img
-              src={require("../images/ecplogo.png")}
-              className="img-fluid"
-              width="50"
-              alt="East Coast Pizza Logo"
-            />
+            {data.allContentfulMainContent.edges.map(edge => (
+              <Img
+                fluid={edge.node.businessLogo.fluid}
+                alt={edge.node.businessLogo.description}
+                style={{ width: 50, height: "auto" }}
+              />
+            ))}
           </Col>
 
           <Col
