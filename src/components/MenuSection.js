@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 
-import { Container, Row } from "reactstrap"
+import { Container, Row, Col } from "reactstrap"
 import MenuItem from "../components/menuitem"
 import { useStaticQuery, graphql } from "gatsby"
 
@@ -129,9 +129,11 @@ const MenuSection = props => {
     <section id="menu_s01" className="halftone menu-section">
       <Container>
         <Row>
-          <h1 className="pt-5">{props.SectionTitle}</h1>
-          <p>{props.description}</p>
-          <hr />
+          <Col>
+            <h1 className="pt-5">{props.SectionTitle}</h1>
+            <p>{props.description}</p>
+            <hr />
+          </Col>
         </Row>
         <Row>
           {isType === "Sides"
