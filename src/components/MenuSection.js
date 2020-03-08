@@ -1,179 +1,122 @@
-import React from "react"
+import React, { useState } from "react"
 
-import { Container, Row, Col } from "reactstrap"
+import { Container, Row } from "reactstrap"
 import MenuItem from "../components/menuitem"
 import { useStaticQuery, graphql } from "gatsby"
-import { useState } from "react"
 
 const MenuSection = props => {
   const data = useStaticQuery(graphql`
     {
-      allContentfulEastCoastMenuStartersSides {
-        edges {
-          node {
-            eastCoastAppetizerName
-            price
-            subSectionId
-            description {
-              description
-            }
-          }
-        }
-      }
-
-      allContentfulEastCoastMenuBeverages {
-        edges {
-          node {
-            name
-            price
-            description {
-              description
-              internal {
-                content
-              }
-            }
-          }
-        }
-      }
-
-      allContentfulEastCoastMenuSoupsSalads {
-        edges {
-          node {
-            name
-            price
-            description {
-              description
-            }
-          }
-        }
-      }
-
-      allContentfulEastCoastMenuSandwiches {
-        edges {
-          node {
-            name
-            price
-            description {
-              description
-            }
-          }
-        }
-      }
-
-      allContentfulEastCoastMenuDesserts {
-        edges {
-          node {
-            name
-            price
-            description {
-              description
-            }
-          }
-        }
-      }
-
-      allContentfulEastCoastMenuEntrees {
-        edges {
-          node {
-            name
-            price
-            description {
-              description
-            }
-          }
-        }
-      }
-
-      allContentfulEastCoastMenuKidsMenu {
-        edges {
-          node {
-            description {
-              description
-            }
-            name
-            price
-          }
-        }
-      }
-
-      allContentfulEastCoastMenuPizzas {
-        edges {
-          node {
-            name
-            price
-            description {
-              description
-            }
-          }
-        }
-      }
-
-      allContentfulEastCoastMenuSpecials {
-        edges {
-          node {
-            description {
-              description
-            }
-            name
-            price
-          }
-        }
-      }
-
-      allContentfulEastCoastMenuSectionInformation(
-        filter: { subSectionTitles: { ne: null } }
+      Sides: allContentfulMenuSections(
+        sort: { fields: createdAt, order: ASC }
+        filter: { contentfulid: { eq: "Sides" } }
       ) {
         edges {
           node {
-            subSectionTitles
+            title
+            menuItems {
+              name
+              price
+              description {
+                description
+              }
+            }
+            contentfulid
           }
         }
       }
 
-      allContentfulEastCoastMenuColdSandwiches {
+      LunchSpecials: allContentfulMenuSections(
+        sort: { fields: createdAt, order: ASC }
+        filter: { contentfulid: { eq: "LunchSpecials" } }
+      ) {
         edges {
           node {
-            name
-            price
-            description {
-              description
+            title
+            menuItems {
+              name
+              price
+              description {
+                description
+              }
             }
+            contentfulid
           }
         }
       }
 
-      allContentfulEastCoastMenuSpecialtyPizzas {
+      Salads: allContentfulMenuSections(
+        sort: { fields: createdAt, order: ASC }
+        filter: { contentfulid: { eq: "Salads" } }
+      ) {
         edges {
           node {
-            name
-            price
-            description {
-              description
+            title
+            menuItems {
+              name
+              price
+              description {
+                description
+              }
             }
+            contentfulid
           }
         }
       }
 
-      allContentfulEastCoastMenuCalzone {
+      Subs: allContentfulMenuSections(
+        sort: { fields: createdAt, order: ASC }
+        filter: { contentfulid: { eq: "Subs" } }
+      ) {
         edges {
           node {
-            name
-            price
-            description {
-              description
+            title
+            menuItems {
+              name
+              price
+              description {
+                description
+              }
             }
+            contentfulid
           }
         }
       }
 
-      allContentfulEastCoastMenuStromboli {
+      Pizzas: allContentfulMenuSections(
+        sort: { fields: createdAt, order: ASC }
+        filter: { contentfulid: { eq: "Pizzas" } }
+      ) {
         edges {
           node {
-            name
-            price
-            description {
-              description
+            title
+            menuItems {
+              name
+              price
+              description {
+                description
+              }
             }
+            contentfulid
+          }
+        }
+      }
+
+      Beverages: allContentfulMenuSections(
+        sort: { fields: createdAt, order: ASC }
+        filter: { contentfulid: { eq: "Beverages" } }
+      ) {
+        edges {
+          node {
+            title
+            menuItems {
+              name
+              price
+              description {
+                description
+              }
+            }
+            contentfulid
           }
         }
       }
@@ -181,7 +124,8 @@ const MenuSection = props => {
   `)
 
   const [isType, setType] = useState(props.type)
-  return isType === "sandwiches" ? (
+
+  return (
     <section id="menu_s01" className="halftone menu-section">
       <Container>
         <Row>
@@ -190,152 +134,66 @@ const MenuSection = props => {
           <hr />
         </Row>
         <Row>
-          <Col xs="12">
-            <h2>Cold Sandwiches</h2>
-          </Col>
-
-          {data.allContentfulEastCoastMenuColdSandwiches.edges.map(edge => (
-            <MenuItem
-              menuitemname={edge.node.name}
-              price={edge.node.price}
-              description={edge.node.description.description}
-            />
-          ))}
-
-          <Col xs="12">
-            <h2>Hot Sandwiches</h2>
-          </Col>
-
-          {data.allContentfulEastCoastMenuSandwiches.edges.map(edge => (
-            <MenuItem
-              menuitemname={edge.node.name}
-              price={edge.node.price}
-              description={edge.node.description.description}
-            />
-          ))}
-        </Row>
-      </Container>
-    </section>
-  ) : isType === "pizza" ? (
-    <section id="menu_s01" className="halftone menu-section">
-      <Container>
-        <Row>
-          <h1 className="pt-5">{props.SectionTitle}</h1>
-          <p>{props.description}</p>
-          <hr />
-        </Row>
-        <Row>
-          {data.allContentfulEastCoastMenuPizzas.edges.map(edge => (
-            <MenuItem
-              menuitemname={edge.node.name}
-              price={edge.node.price}
-              description={edge.node.description.description}
-            />
-          ))}
-
-          <Col xs="12">
-            <h2>Specialty Pizzas</h2>
-          </Col>
-
-          {data.allContentfulEastCoastMenuSpecialtyPizzas.edges.map(edge => (
-            <MenuItem
-              menuitemname={edge.node.name}
-              price={edge.node.price}
-              description={edge.node.description.description}
-            />
-          ))}
-
-          <Col xs="12">
-            <h2>Calzones</h2>
-          </Col>
-
-          {data.allContentfulEastCoastMenuCalzone.edges.map(edge => (
-            <MenuItem
-              menuitemname={edge.node.name}
-              price={edge.node.price}
-              description={edge.node.description.description}
-            />
-          ))}
-
-          <Col xs="12">
-            <h2>Stromboli's</h2>
-          </Col>
-
-          {data.allContentfulEastCoastMenuStromboli.edges.map(edge => (
-            <MenuItem
-              menuitemname={edge.node.name}
-              price={edge.node.price}
-              description={edge.node.description.description}
-            />
-          ))}
-        </Row>
-      </Container>
-    </section>
-  ) : (
-    <section id="menu_s01" className="halftone menu-section">
-      <Container>
-        <Row>
-          <h1 className="pt-5">{props.SectionTitle}</h1>
-          <p>{props.description}</p>
-          <hr />
-        </Row>
-        <Row>
-          {isType === "starters"
-            ? data.allContentfulEastCoastMenuStartersSides.edges.map(edge => (
-                <MenuItem
-                  menuitemname={edge.node.eastCoastAppetizerName}
-                  price={edge.node.price}
-                  description={edge.node.description.description}
-                />
-              ))
-            : isType === "beverages"
-            ? data.allContentfulEastCoastMenuBeverages.edges.map(edge => (
-                <MenuItem
-                  menuitemname={edge.node.name}
-                  price={edge.node.price}
-                  description={edge.node.description.description}
-                />
-              ))
-            : isType === "soupsalad"
-            ? data.allContentfulEastCoastMenuSoupsSalads.edges.map(edge => (
-                <MenuItem
-                  menuitemname={edge.node.name}
-                  price={edge.node.price}
-                  description={edge.node.description.description}
-                />
-              ))
-            : isType === "entree"
-            ? data.allContentfulEastCoastMenuEntrees.edges.map(edge => (
-                <MenuItem
-                  menuitemname={edge.node.name}
-                  price={edge.node.price}
-                  description={edge.node.description.description}
-                />
-              ))
-            : isType === "specials"
-            ? data.allContentfulEastCoastMenuSpecials.edges.map(edge => (
-                <MenuItem
-                  menuitemname={edge.node.name}
-                  price={edge.node.price}
-                  description={edge.node.description.description}
-                />
-              ))
-            : isType === "kids"
-            ? data.allContentfulEastCoastMenuKidsMenu.edges.map(edge => (
-                <MenuItem
-                  menuitemname={edge.node.name}
-                  price={edge.node.price}
-                  description={edge.node.description.description}
-                />
-              ))
-            : isType === "desert"
-            ? data.allContentfulEastCoastMenuDesserts.edges.map(edge => (
-                <MenuItem
-                  menuitemname={edge.node.name}
-                  price={edge.node.price}
-                  description={edge.node.description.description}
-                />
-              ))
+          {isType === "Sides"
+            ? data.Sides.edges.map(edge =>
+                edge.node.menuItems.map(item => (
+                  <MenuItem
+                    menuitemname={item.name}
+                    price={item.price}
+                    description={item.description.description}
+                  />
+                ))
+              )
+            : isType === "LunchSpecials"
+            ? data.LunchSpecials.edges.map(edge =>
+                edge.node.menuItems.map(item => (
+                  <MenuItem
+                    menuitemname={item.name}
+                    price={item.price}
+                    description={item.description.description}
+                  />
+                ))
+              )
+            : isType === "Salads"
+            ? data.Salads.edges.map(edge =>
+                edge.node.menuItems.map(item => (
+                  <MenuItem
+                    menuitemname={item.name}
+                    price={item.price}
+                    description={item.description.description}
+                  />
+                ))
+              )
+            : isType === "Subs"
+            ? data.Subs.edges.map(edge =>
+                edge.node.menuItems.map(item => (
+                  <MenuItem
+                    menuitemname={item.name}
+                    price={item.price}
+                    description={item.description.description}
+                  />
+                ))
+              )
+            : isType === "Pizzas"
+            ? data.Pizzas.edges.map(edge =>
+                edge.node.menuItems.map(item => (
+                  <MenuItem
+                    menuitemname={item.name}
+                    price={item.price}
+                    description={item.description.description}
+                  />
+                ))
+              )
+            : isType === "Beverages"
+            ? data.Beverages.edges.map(edge =>
+                edge.node.menuItems.map(item => (
+                  <MenuItem
+                    menuitemname={item.name}
+                    price={item.price}
+                    description={item.description.description}
+                  />
+                ))
+              )
             : null}
         </Row>
       </Container>

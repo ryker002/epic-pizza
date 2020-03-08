@@ -4,8 +4,6 @@
  * See: https://www.gatsbyjs.org/docs/browser-apis/
  */
 
-"use strict"
-
 require("firebase/auth")
 
 require("firebase/firestore")

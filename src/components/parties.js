@@ -8,19 +8,18 @@ import Img from "gatsby-image"
 const Party = () => {
   const data = useStaticQuery(graphql`
     {
-      allContentfulEastCoastPizzaHomeContent {
+      allContentfulMainContent {
         edges {
           node {
-            eastCoastPartiesSectionTitle
-            eastCoastPartiesParagraph {
+            partiesTitle
+            partiesContent {
               json
             }
-            eastCoastPartiesLinkTitle
-            eastCoastPartiesCompanionImage {
+            partiesImage {
+              description
               fluid(maxWidth: 1500) {
                 ...GatsbyContentfulFluid_withWebp
               }
-              description
             }
           }
         }
@@ -45,10 +44,10 @@ const Party = () => {
       <Container fluid>
         <Row className="">
           <Col xs="12" md="8" className="img-fluid">
-            {data.allContentfulEastCoastPizzaHomeContent.edges.map(edge => (
+            {data.allContentfulMainContent.edges.map(edge => (
               <Img
-                fluid={edge.node.eastCoastPartiesCompanionImage.fluid}
-                alt={edge.node.eastCoastPartiesCompanionImage.description}
+                fluid={edge.node.partiesImage.fluid}
+                alt={edge.node.partiesImage.description}
                 className="img-fluid"
               />
             ))}
@@ -59,26 +58,18 @@ const Party = () => {
             md="4"
             className="d-flex flex-column align-items-center justify-content-center pl-5 pr-5"
           >
-            {data.allContentfulEastCoastPizzaHomeContent.edges.map(edge => (
-              <h1 className="pb-2 pt-5">
-                {edge.node.eastCoastPartiesSectionTitle}
-              </h1>
+            {data.allContentfulMainContent.edges.map(edge => (
+              <h1 className="pb-2 pt-5">{edge.node.partiesTitle}</h1>
             ))}
-            {data.allContentfulEastCoastPizzaHomeContent.edges.map(edge =>
-              documentToReactComponents(
-                edge.node.eastCoastPartiesParagraph.json,
-                options
-              )
+            {data.allContentfulMainContent.edges.map(edge =>
+              documentToReactComponents(edge.node.partiesContent.json, options)
             )}
-
-            {data.allContentfulEastCoastPizzaHomeContent.edges.map(edge => (
-              <Link
-                className="btn align-items-center d-flex justify-content-center"
-                to="/parties"
-              >
-                {edge.node.eastCoastPartiesLinkTitle}
-              </Link>
-            ))}
+            <Link
+              className="btn align-items-center d-flex justify-content-center"
+              to="/parties"
+            >
+              Find Out More
+            </Link>
           </Col>
         </Row>
       </Container>

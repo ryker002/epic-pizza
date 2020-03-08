@@ -1,113 +1,17 @@
 import React from "react"
-import { Container, Row, Col } from "reactstrap"
-import PizzaCard from "./pizzacard"
-import Slider from "react-slick"
-import { useStaticQuery, graphql } from "gatsby"
 
 const Pizza = () => {
-  const settings = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    initialSlide: 0,
-    autoplay: true,
-    autoplaySpeed: 2000,
-    pauseOnHover: true,
-    // centerMode: true,
-    arrows: true,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          infinite: true,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          initialSlide: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  }
-
-  const data = useStaticQuery(graphql`
-    {
-      allContentfulEastCoastPizzaCard(sort: { fields: orderId, order: ASC }) {
-        edges {
-          node {
-            dayOfTheWeek
-            pizzaImage {
-              description
-              fixed(height: 250) {
-                ...GatsbyContentfulFixed_tracedSVG
-              }
-            }
-            pizzaName
-          }
-        }
-      }
-
-      allContentfulEastCoastPizzaHomeContent {
-        edges {
-          node {
-            eastCoastPizzasSectionTitle
-            eastCoastPizzasDescription {
-              eastCoastPizzasDescription
-            }
-          }
-        }
-      }
-    }
-  `)
-
   return (
     <section id="pizza" className="bricks">
-      <Container>
-        <Row className="">
-          <Col
-            xs="12"
-            className="bricks-header d-flex flex-md-row flex-column align-items-center pt-5"
-          >
-            {data.allContentfulEastCoastPizzaHomeContent.edges.map(edge => (
-              <h1>{edge.node.eastCoastPizzasSectionTitle}</h1>
-            ))}
-            {data.allContentfulEastCoastPizzaHomeContent.edges.map(edge => (
-              <p>
-                {
-                  edge.node.eastCoastPizzasDescription
-                    .eastCoastPizzasDescription
-                }
-              </p>
-            ))}
-          </Col>
-        </Row>
-
-        <Slider {...settings} className="beer-card-container row pt-5">
-          {data.allContentfulEastCoastPizzaCard.edges.map(edge => (
-            <PizzaCard
-              img={edge.node.pizzaImage.fixed}
-              description={edge.node.pizzaImage.description}
-              day={edge.node.dayOfTheWeek}
-              name={edge.node.pizzaName}
-            />
-          ))}
-        </Slider>
-      </Container>
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3117.6712211768327!2d-90.20526948465807!3d38.61043697961603!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87d8b3a084417bf7%3A0x9212bd7bfdee7ea9!2sEpic%20Pizza%20%26%20Subs!5e0!3m2!1sen!2sus!4v1579893014177!5m2!1sen!2sus"
+        width="100%"
+        height="100%"
+        frameborder="0"
+        style={{ border: 0, position: "absolute", top: 0, left: 0 }}
+        allowfullscreen=""
+        title="Google Maps"
+      ></iframe>
     </section>
   )
 }

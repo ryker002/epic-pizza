@@ -1,8 +1,8 @@
 module.exports = {
   siteMetadata: {
-    title: `East Coast Pizza`,
-    description: `ECP is a fast-casual, family friendly spot serving New York style Hand-tossed pizzas, Slices, subs, and over 80 beers. Catering and large reservations available.`,
-    keywords: `Slices, outdoor seating, Lunch Special, Garlic Knots, Brick Ovens, Cheesesteaks, Local`,
+    title: `Epic Pizza`,
+    description: `Desription Placeholder`,
+    keywords: `KeyWords Placeholder`,
     author: `Lewandowski Design`,
   },
   plugins: [
@@ -40,9 +40,9 @@ module.exports = {
     {
       resolve: `gatsby-source-contentful`,
       options: {
-        spaceId: `io9l05j3sg7i`,
+        spaceId: `2rh2k5qgspqh`,
         // Learn about environment variables: https://gatsby.dev/env-vars
-        accessToken: "vicDN5v09hwWyMEfff0JBNJADo47o3Lp3Iyffbwm6D4",
+        accessToken: "lGDXrXkbszs5zrqBwIHdZNW3Y5Zfy5ZBJaUWMNmVE_Q",
       },
     },
     {
@@ -64,7 +64,7 @@ module.exports = {
         },
       },
     },
-      {
+    {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
         // replace "UA-XXXXXXXXX-X" with your own Tracking ID

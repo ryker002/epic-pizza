@@ -20,14 +20,14 @@ const About = () => {
 
   const data = useStaticQuery(graphql`
     {
-      allContentfulEastCoastPizzaHomeContent {
+      allContentfulMainContent {
         edges {
           node {
-            eastCoastAboutSectionTitle
-            eastCoastAboutParagraph {
+            aboutTitle
+            aboutContent {
               json
             }
-            eastCoastAboutImageCompanion {
+            aboutImage {
               fluid(maxWidth: 1500) {
                 ...GatsbyContentfulFluid_withWebp
               }
@@ -50,24 +50,21 @@ const About = () => {
             md="4"
             className="d-flex flex-column align-items-center justify-content-center pl-5 pr-5 pb-5"
           >
-            {data.allContentfulEastCoastPizzaHomeContent.edges.map(edge => (
+            {data.allContentfulMainContent.edges.map(edge => (
               <h1 className="pb-2 pt-5 text-uppercase">
-                {edge.node.eastCoastAboutSectionTitle}
+                {edge.node.aboutTitle}
               </h1>
             ))}
-            {data.allContentfulEastCoastPizzaHomeContent.edges.map(edge =>
-              documentToReactComponents(
-                edge.node.eastCoastAboutParagraph.json,
-                options
-              )
+            {data.allContentfulMainContent.edges.map(edge =>
+              documentToReactComponents(edge.node.aboutContent.json, options)
             )}
           </Col>
 
           <Col xs="12" md="8" className="img-fluid">
-            {data.allContentfulEastCoastPizzaHomeContent.edges.map(edge => (
+            {data.allContentfulMainContent.edges.map(edge => (
               <Img
-                fluid={edge.node.eastCoastAboutImageCompanion.fluid}
-                alt={edge.node.eastCoastAboutImageCompanion.description}
+                fluid={edge.node.aboutImage.fluid}
+                alt={edge.node.aboutImage.description}
                 className="img-fluid"
               />
             ))}

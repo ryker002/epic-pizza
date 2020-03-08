@@ -8,16 +8,15 @@ import BackgroundImage from "gatsby-background-image"
 const Header = ({ siteTitle }) => {
   const data = useStaticQuery(graphql`
     {
-      allContentfulEastCoastPizzaHomeContent {
+      allContentfulMainContent {
         edges {
           node {
-            eastCoastHeaderImage {
+            businessLogo {
               description
-              fixed(height: 300) {
+              fixed(width: 468, height: 300) {
                 ...GatsbyContentfulFixed_tracedSVG
               }
             }
-
             headerBackground {
               fluid {
                 ...GatsbyContentfulFluid_withWebp
@@ -30,8 +29,7 @@ const Header = ({ siteTitle }) => {
   `)
 
   const background =
-    data.allContentfulEastCoastPizzaHomeContent.edges[0].node.headerBackground
-      .fluid
+    data.allContentfulMainContent.edges[0].node.headerBackground.fluid
 
   return (
     // <header>
@@ -40,13 +38,12 @@ const Header = ({ siteTitle }) => {
         <Row className="header_image d-flex justify-content-center">
           <Col
             xs="12"
-            md="6"
             className="p-5 d-flex justify-content-center align-items-center"
           >
-            {data.allContentfulEastCoastPizzaHomeContent.edges.map(edge => (
+            {data.allContentfulMainContent.edges.map(edge => (
               <Img
-                fixed={edge.node.eastCoastHeaderImage.fixed}
-                alt={edge.node.eastCoastHeaderImage.description}
+                fixed={edge.node.businessLogo.fixed}
+                alt={edge.node.businessLogo.description}
               />
             ))}
           </Col>
