@@ -57,6 +57,7 @@ const Header = ({ siteTitle }) => {
                 <Img
                   fluid={edge.node.businessLogo.fluid}
                   alt={edge.node.businessLogo.description}
+                  className="epic-image"
                 />
               ))}
             </HeaderImgWrapper>
