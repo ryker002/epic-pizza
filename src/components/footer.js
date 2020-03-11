@@ -94,9 +94,7 @@ const Footer = () => {
             md="4"
             className="d-flex align-items-center justify-content-center"
           >
-            <a href="https://www.google.com/maps/place/East+Coast+Pizza/@38.6678068,-90.6034032,17z/data=!3m2!4b1!5s0x87df2aa0a8a04909:0x7edf0a3ae62f3705!4m5!3m4!1s0x87df2aa0a61c2095:0x77bffdad89b5beef!8m2!3d38.6678026!4d-90.6012145">
-              DIRECTIONS
-            </a>
+            <a href="https://g.page/EPICPizzaSoulard?share">DIRECTIONS</a>
           </Col>
 
           <Col
