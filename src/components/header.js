@@ -5,6 +5,7 @@ import { useStaticQuery, graphql } from "gatsby"
 import Img from "gatsby-image"
 import BackgroundImage from "gatsby-background-image"
 import styled from "styled-components"
+import { Location } from "@reach/router"
 
 const Header = ({ siteTitle }) => {
   const data = useStaticQuery(graphql`
@@ -44,28 +45,32 @@ const Header = ({ siteTitle }) => {
   `
 
   return (
-    // <header>
-    <BackgroundImage tag={"header"} fluid={background}>
-      <Container style={{ minHeight: "80vh" }}>
-        <Row className="header_image d-flex justify-content-center">
-          <Col
-            xs="12"
-            className="p-5 d-flex justify-content-center align-items-center"
+    <Location>
+      {({ navigate, location }) => (
+        <BackgroundImage tag={"header"} fluid={background}>
+          <Container
+            style={{ minHeight: location.pathname === "/" ? "80vh" : "40vh" }}
           >
-            <HeaderImgWrapper>
-              {data.allContentfulMainContent.edges.map(edge => (
-                <Img
-                  fluid={edge.node.businessLogo.fluid}
-                  alt={edge.node.businessLogo.description}
-                  className="epic-image"
-                />
-              ))}
-            </HeaderImgWrapper>
-          </Col>
-        </Row>
-      </Container>
-    </BackgroundImage>
-    // </header>
+            <Row className="header_image d-flex justify-content-center">
+              <Col
+                xs="12"
+                className="p-5 d-flex justify-content-center align-items-center"
+              >
+                <HeaderImgWrapper>
+                  {data.allContentfulMainContent.edges.map(edge => (
+                    <Img
+                      fluid={edge.node.businessLogo.fluid}
+                      alt={edge.node.businessLogo.description}
+                      className="epic-image"
+                    />
+                  ))}
+                </HeaderImgWrapper>
+              </Col>
+            </Row>
+          </Container>
+        </BackgroundImage>
+      )}
+    </Location>
   )
 }
 
